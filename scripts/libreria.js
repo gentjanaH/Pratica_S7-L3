@@ -38,15 +38,49 @@ const getData = function () {
                 </div>
 
                 `
+
+                // bottone compra ora
+                const cartList = document.getElementById("cartList")
+                const buyNow = newCol.querySelector(".btn-outline-success")
+                buyNow.addEventListener("click", () => {
+                    const lista = document.createElement("li")
+                    lista.className = "list-group-item d-flex justify-content-between align-items-center"
+                    lista.innerHTML = `
+                <span>${b.title}</span>
+                 <span>€ ${b.price}</span>
+                 
+                
+                `
+                    alert(`${b.title} è stato aggiunto al carrello!`)
+                    cartList.appendChild(lista)
+                })
+
+                // bottone scarta
                 const deleteCard = newCol.querySelector(".btn-outline-danger")
                 deleteCard.addEventListener("click", () => {
                     console.log("bottone cliccato")
                     newCol.remove()
                 })
 
+
+
+
                 bookShelf.appendChild(newCol)
 
             })
+
+            // carrello che apre modale
+            const cartButton = document.getElementById("carrello")
+
+
+            cartButton.addEventListener("click", () => {
+                const cartModal = document.getElementById("exampleModal")
+
+                cartModal.show()
+
+            })
+
+
         })
         .catch((err) => {
             console.log("ERRORE", err)

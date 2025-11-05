@@ -43,6 +43,7 @@
 
 
                     </ul>
+
                     <ul class="navbar-nav me-4 mb-2 mb-lg-0">
                         <li class="nav-item">
                             <a class="nav-link" href="#">Cart</a>
@@ -50,7 +51,8 @@
                         </li>
                         <li class="nav-item">
 
-                            <button id="carrello" class="btn btn-outline-success" type="submit"><i
+                            <button id="carrello" data-bs-toggle="modal" data-bs-target="#exampleModal"
+                                class="btn btn-outline-success" type="submit"><i
                                     class="bi bi-bag-heart-fill"></i></button>
                         </li>
                     </ul>
@@ -66,6 +68,28 @@
             <div id="shelf" class="row g-3"></div>
         </div>
     </main>
+    <!-- MODALE -->
+
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">Il tuo carrello</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <ul id="cartList" class="list-group mt-3">
+                        <!-- libri acquistati -->
+                    </ul>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary">Proceed to payment</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- fine modale -->
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
