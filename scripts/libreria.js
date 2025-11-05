@@ -17,6 +17,7 @@ const getData = function () {
             console.log(book[0].price)
 
             const bookShelf = document.getElementById("shelf")
+            let cartItems = JSON.parse(localStorage.getItem("cart")) || []
             book.forEach((b) => {
                 const newCol = document.createElement("div")
                 newCol.className = "col col-6 col-md-4 col-lg-3"
@@ -42,17 +43,51 @@ const getData = function () {
                 // bottone compra ora
                 const cartList = document.getElementById("cartList")
                 const buyNow = newCol.querySelector(".btn-outline-success")
-                buyNow.addEventListener("click", () => {
-                    const lista = document.createElement("li")
-                    lista.className = "list-group-item d-flex justify-content-between align-items-center"
-                    lista.innerHTML = `
+
+                // salvo il carrello nel localStorage
+
+                const salvaCart = () => {
+                    cartList.innerHTML = ""
+                    cartItems.forEach((b, i) => {
+
+                        const lista = document.createElement("li")
+                        lista.className = "list-group-item d-flex justify-content-between align-items-center"
+                        lista.innerHTML = `
                 <span>${b.title}</span>
                  <span>€ ${b.price}</span>
+                 <button class="btn btn-sm btn-outline-danger rounded-pill" >Delete</button>
                  
                 
                 `
-                    alert(`${b.title} è stato aggiunto al carrello!`)
-                    cartList.appendChild(lista)
+
+                        // bottone elimina dal carrello
+                        const deleteBook = lista.querySelector(".btn-outline-danger")
+                        deleteBook.addEventListener("click", () => {
+                            console.log("bottone cliccato")
+                            cartItems.splice(i, 1)
+                            localStorage.setItem("cart", JSON.stringify(cartItems))
+                            salvaCart()
+                            updateCartCount()
+                            // lista.remove()
+                        })
+                        cartList.appendChild(lista)
+                    })
+                }
+                //   funzione per contare articoli
+                const updateCartCount = () => {
+                    const cartCount = document.getElementById("cartCount")
+                    const currentCart = JSON.parse(localStorage.getItem("cart"))
+                    cartCount.textContent = currentCart.length
+                    cartCount.classList.add("badge", "rounded-pill", "bg-danger", "text-light")
+                }
+
+                buyNow.addEventListener("click", () => {
+
+                    cartItems.push({ title: b.title, price: b.price })
+                    localStorage.setItem("cart", JSON.stringify(cartItems))
+                    salvaCart()
+                    updateCartCount()
+
                 })
 
                 // bottone scarta
@@ -62,23 +97,10 @@ const getData = function () {
                     newCol.remove()
                 })
 
-
-
-
                 bookShelf.appendChild(newCol)
 
             })
 
-            // carrello che apre modale
-            const cartButton = document.getElementById("carrello")
-
-
-            cartButton.addEventListener("click", () => {
-                const cartModal = document.getElementById("exampleModal")
-
-                cartModal.show()
-
-            })
 
 
         })
